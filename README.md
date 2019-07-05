@@ -1,2 +1,3 @@
 # thymeleaf
-trying spring boot with /opt/LI/thymeleaf/tutorials/spring-mvc-forms-thymeleaf
+trying spring boot with thymeleaf
+This is based from https://github.com/eugenp/tutorials/tree/master/spring-mvc-forms-thymeleaf
