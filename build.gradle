@@ -17,7 +17,7 @@ apply plugin: 'idea'
 apply plugin: 'war'
 
 springBoot {
-    mainClassName = 'com.baeldung.listbindingexample.ListBindingApplication'
+    mainClassName = 'com.myropcb.listbindingexample.ListBindingApplication'
 }
 
 

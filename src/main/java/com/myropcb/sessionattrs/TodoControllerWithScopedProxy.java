@@ -1,4 +1,4 @@
-package com.baeldung.sessionattrs;
+package com.myropcb.sessionattrs;
 
 import java.time.LocalDateTime;
 

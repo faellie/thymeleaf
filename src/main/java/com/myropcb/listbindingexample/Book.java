@@ -1,4 +1,4 @@
-package com.baeldung.listbindingexample;
+package com.myropcb.listbindingexample;
 
 public class Book {
 
