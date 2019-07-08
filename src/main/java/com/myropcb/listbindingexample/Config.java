@@ -1,6 +1,7 @@
 package com.myropcb.listbindingexample;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,6 +13,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @EnableWebMvc
 @Configuration
+@ComponentScan(basePackages = {
+        "com.myropcb.pcb.controller",
+        "com.myropcb.pcb.core"
+})
 public class Config implements WebMvcConfigurer {
 
     @Override

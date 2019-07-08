@@ -1,0 +1,90 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Order</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1> Customer Order </h1>
+		</div>
+	</div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form action="#" class="form-horizontal"
+                  th:action="@{/order/process}"
+                  th:object="${form}"
+                  method="post">
+                <fieldset>
+					<span class="pull-right">
+						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Process">
+						    <!--<input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>-->
+					</span>
+                    <input type="text" th:value="*{maxFitRate}"/>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Area </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--<tr th:if="${form.baseBoards.empty}">
+                            <td colspan="2"> No baseboard Available </td>
+                        </tr>
+                        <tr th:each="baseBoard : ${form.baseBoards}">
+                            <td><span th:text="${baseBoard.id}"> ID </span></td>
+                            <td><span th:text="${baseBoard.area}"> Area </span></td>
+                        </tr>-->
+
+                        <tr th:each="baseBoard, itemStat : *{baseBoards}">
+                            <!--<td><input hidden th:name="|form.baseBoards[${itemStat.index}].id|" th:value="${baseBoard.getId()}"/></td>-->
+                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|baseBoards[${itemStat.index}].id|"
+                                       th:value="${baseBoard.getId()}"  required/></td>
+                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|baseBoards[${itemStat.index}].area|" th:value="${baseBoard.getArea()}"
+                                       required/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Area </th>
+                            <th> Count </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${form.pcbBoards.empty}">
+                            <td colspan="3"> No pcbBoards Available </td>
+                        </tr>
+                        <!--<tr th:each="pcbBoard : ${form.pcbBoards}">
+                            <td><span th:text="${pcbBoard.id}"> ID </span></td>
+                            <td><span th:text="${pcbBoard.area}"> Area </span></td>
+                            <td><span th:text="${pcbBoard.count}"> Count </span></td>
+                        </tr>-->
+                        <tr th:each="pcbBoard, itemStat : *{pcbBoards}">
+                            <!--<td><input hidden th:name="|form.baseBoards[${itemStat.index}].id|" th:value="${baseBoard.getId()}"/></td>-->
+                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].id|" th:value="${pcbBoard.getId()}"
+                                       required/></td>
+                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].area|"
+                                       th:value="${pcbBoard.getArea()}" required/></td>
+                            <td><input th:placeholder="Count + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].count|"
+                                       th:value="${pcbBoard.getCount()}" required/></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+        <!--<div class="col-md-6">
+            <a class="btn btn-success" href="#" th:href="@{/order/process}"> Add Books </a>
+        </div>-->
+    </div>
+
+</div>
+</body>
+</html>
