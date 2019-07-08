@@ -1,7 +1,5 @@
 package com.myropcb.pcb.model;
 
-import com.myropcb.listbindingexample.Book;
-
 import java.util.ArrayList;
 import java.util.List;
 

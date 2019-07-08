@@ -27,7 +27,6 @@ public class OrderController {
     public String showAll(Model model) {
         model.addAttribute("form", orderService.getOrder());
         return "customOrder";
-        //return "redirect:/books/all";
     }
 
 
@@ -38,40 +37,4 @@ public class OrderController {
         model.addAttribute("workOrderDto", new WorkOrderDto(lworkOrders));
         return "workOrder";
     }
-
-
-
-    /*@GetMapping(value = "/create")
-    public String showCreateForm(Model model) {
-        BooksCreationDto booksForm = new BooksCreationDto();
-
-        for (int i = 1; i <= 3; i++) {
-            booksForm.addBook(new Book());
-        }
-
-        model.addAttribute("form", booksForm);
-
-        return "createBooksForm";
-    }
-
-    @GetMapping(value = "/edit")
-    public String showEditForm(Model model) {
-        List<Book> books = new ArrayList<>();
-        orderService.findAll()
-            .iterator()
-            .forEachRemaining(books::add);
-
-        model.addAttribute("form", new BooksCreationDto(books));
-
-        return "editBooksForm";
-    }
-
-    @PostMapping(value = "/save")
-    public String saveBooks(@ModelAttribute BooksCreationDto form, Model model) {
-        orderService.saveAll(form.getBooks());
-
-        model.addAttribute("books", orderService.findAll());
-
-        return "redirect:/books/all";
-    }*/
 }
