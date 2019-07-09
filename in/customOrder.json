@@ -2,7 +2,7 @@
   "pcbBoards" : [ {
     "area" : 50.0,
     "count" : 200,
-    "id" : "board3"
+    "id" : "board1"
   }, {
     "area" : 100.0,
     "count" : 200,
@@ -10,7 +10,7 @@
   }, {
     "area" : 100.0,
     "count" : 300,
-    "id" : "board1"
+    "id" : "board3"
   },
     {
       "area" : 20.0,

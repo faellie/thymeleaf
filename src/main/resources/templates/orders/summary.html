@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-6">
             <form action="#" class="form-horizontal"
-                  th:action="@{/order/process}"
+                  th:action="@{/order/processAll}"
                   th:object="${form}"
                   method="post">
                 <fieldset>
@@ -22,7 +22,7 @@
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Process">
 						    <!--<input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>-->
 					</span>
-                    <label>Max Fix Rate  </label><input type="text" th:name="maxFitRate" th:value="*{maxFitRate}"/>
+                    <label>Max Fix Rate  </label><input type="text" th:name="customOrder.maxFitRate" th:value="*{customOrder.maxFitRate}"/>
                     <div class="container">
                         <p>
                         <h3>Base Board Info</h3>
@@ -44,11 +44,11 @@
                             <td><span th:text="${baseBoard.area}"> Area </span></td>
                         </tr>-->
 
-                        <tr th:each="baseBoard, itemStat : *{baseBoards}">
+                        <tr th:each="baseBoard, itemStat : *{customOrder.baseBoards}">
                             <!--<td><input hidden th:name="|form.baseBoards[${itemStat.index}].id|" th:value="${baseBoard.getId()}"/></td>-->
-                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|baseBoards[${itemStat.index}].id|"
+                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|customOrder.baseBoards[${itemStat.index}].id|"
                                        th:value="${baseBoard.getId()}"  required/></td>
-                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|baseBoards[${itemStat.index}].area|" th:value="${baseBoard.getArea()}"
+                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|customOrder.baseBoards[${itemStat.index}].area|" th:value="${baseBoard.getArea()}"
                                        required/></td>
                         </tr>
                         </tbody>
@@ -67,7 +67,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:if="${form.pcbBoards.empty}">
+                        <tr th:if="${form.customOrder.pcbBoards.empty}">
                             <td colspan="3"> No pcbBoards Available </td>
                         </tr>
                         <!--<tr th:each="pcbBoard : ${form.pcbBoards}">
@@ -75,18 +75,66 @@
                             <td><span th:text="${pcbBoard.area}"> Area </span></td>
                             <td><span th:text="${pcbBoard.count}"> Count </span></td>
                         </tr>-->
-                        <tr th:each="pcbBoard, itemStat : *{pcbBoards}">
+                        <tr th:each="pcbBoard, itemStat : *{customOrder.pcbBoards}">
                             <!--<td><input hidden th:name="|form.baseBoards[${itemStat.index}].id|" th:value="${baseBoard.getId()}"/></td>-->
-                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].id|" th:value="${pcbBoard.getId()}"
+                            <td><input th:placeholder="ID + ' ' + ${itemStat.count}" th:name="|customOrder.pcbBoards[${itemStat.index}].id|" th:value="${pcbBoard.getId()}"
                                        required/></td>
-                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].area|"
+                            <td><input th:placeholder="Area + ' ' + ${itemStat.count}" th:name="|customOrder.pcbBoards[${itemStat.index}].area|"
                                        th:value="${pcbBoard.getArea()}" required/></td>
-                            <td><input th:placeholder="Count + ' ' + ${itemStat.count}" th:name="|pcbBoards[${itemStat.index}].count|"
+                            <td><input th:placeholder="Count + ' ' + ${itemStat.count}" th:name="|customOrder.pcbBoards[${itemStat.index}].count|"
                                        th:value="${pcbBoard.getCount()}" required/></td>
                         </tr>
 
                         </tbody>
                     </table>
+
+                    <div class="container">
+                        <p>
+                        <h3>Suggested Layout </h3>
+                        </p>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th> Count </th>
+                            <th> Base BoardId  </th>
+                            <th> usagePercent </th>
+                            <th> Layout </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${form.workOrders.empty}">
+                            <td colspan="2"> No workorders Available </td>
+                        </tr>
+                        <tr th:each="workorder : ${form.workOrders}">
+                            <td><span th:text="${workorder.dups}"> Count </span></td>
+                            <td><span th:text="${workorder.patern.baseBoardId}"> baseBoardId </span></td>
+                            <td>
+                                <span th:text="${workorder.usagePercent * 100}"> usagePercent </span></td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th:block th:each="fill : ${workorder.patern.pcbs}">
+                                            <th th:colspan th:text="${fill.pcbId}">Header Field</th>
+                                        </th:block>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr>
+                                        <th:block th:each="fill : ${workorder.patern.pcbs}">
+                                            <th th:colspan th:text="${fill.count}">Dataset Field</th>
+                                        </th:block>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
                 </fieldset>
             </form>
         </div>

@@ -3,6 +3,7 @@ package com.myropcb.pcb.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myropcb.pcb.model.CustomOrder;
+import com.myropcb.pcb.model.SummaryDto;
 import com.myropcb.pcb.model.WorkOrder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class InMemoryOrderService implements OrderService {
             "  \"pcbBoards\" : [ {\n" +
             "    \"area\" : 50.0,\n" +
             "    \"count\" : 200,\n" +
-            "    \"id\" : \"board3\"\n" +
+            "    \"id\" : \"board1\"\n" +
             "  }, {\n" +
             "    \"area\" : 100.0,\n" +
             "    \"count\" : 200,\n" +
@@ -30,7 +31,7 @@ public class InMemoryOrderService implements OrderService {
             "  }, {\n" +
             "    \"area\" : 100.0,\n" +
             "    \"count\" : 300,\n" +
-            "    \"id\" : \"board1\"\n" +
+            "    \"id\" : \"board3\"\n" +
             "  },\n" +
             "    {\n" +
             "      \"area\" : 20.0,\n" +
@@ -66,6 +67,35 @@ public class InMemoryOrderService implements OrderService {
         return customOrder;
     }
 
+
+    @Override
+    public SummaryDto getSummary() {
+        ObjectMapper mapper = new ObjectMapper();
+        if(null == customOrder) {
+            try {
+                File lInputFile = new File(inputFile);
+                if (lInputFile.exists()) {
+                    customOrder = mapper.readValue(lInputFile, CustomOrder.class);
+                } else {
+                    customOrder = mapper.readValue(inputJsonStr, CustomOrder.class);
+                }
+
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //todo shall allow user to input init pattern but....
+        Fit lFit = new Fit(customOrder);
+        lFit.doFit();
+        ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
+
+        SummaryDto lSummaryDto = new SummaryDto(customOrder, lworkOrders);
+         return lSummaryDto;
+    }
+
     @Override
     public ArrayList<WorkOrder> processOrder(CustomOrder aInCustomOrder) {
         Fit lFit = new Fit(aInCustomOrder);
@@ -74,6 +104,8 @@ public class InMemoryOrderService implements OrderService {
         ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
         return lworkOrders;
     }
+
+
 
 
 }
