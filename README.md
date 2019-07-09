@@ -6,5 +6,6 @@ To start the application you can do one of following:
     java -jar dist/thymeleaf.war 
   Or if you want to debug (debug port is 5105 for this example)
     java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5105 -jar dist/thymeleaf.war
+
 After application start, point you web broswer to http://localhost:8081
 
