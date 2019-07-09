@@ -22,8 +22,13 @@
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Process">
 						    <!--<input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>-->
 					</span>
-                    <input type="text" th:value="*{maxFitRate}"/>
-                    <table class="table">
+                    <label>Max Fix Rate  </label><input type="text" th:value="*{maxFitRate}"/>
+                    <div class="container">
+                        <p>
+                        <h3>Base Board Info</h3>
+                        </p>
+                    </div>
+                    <table class="table-bordered">
                         <thead>
                         <tr>
                             <th> ID </th>
@@ -48,7 +53,12 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="table">
+                    <div class="container">
+                        <p>
+                        <h3>Pcb Board Info</h3>
+                        </p>
+                    </div>
+                    <table class="table-bordered">
                         <thead>
                         <tr>
                             <th> ID </th>

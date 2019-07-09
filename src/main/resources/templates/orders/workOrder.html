@@ -32,7 +32,7 @@
                             <span th:text="${#numbers.formatDecimal(deet, 1, 'COMMA', 2, 'POINT')}"> usagePercent </span></td>
                         <td>-->
                         <td>
-                            <span th:text="${workorder.usagePercent}"> usagePercent </span></td>
+                            <span th:text="${workorder.usagePercent * 100}"> usagePercent </span></td>
                         <td>
                             <table class="table">
                                 <!--<thead>

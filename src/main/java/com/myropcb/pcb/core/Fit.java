@@ -112,7 +112,8 @@ public class Fit {
                 }
             }
         }
-        return new WorkOrder(lPatern, dup + 1, usedPercent);
+        //keep only 2 digit for the usedPercent
+        return new WorkOrder(lPatern, dup + 1, ((int) (10000 * usedPercent))/10000.0);
     }
 
     private Patern initPatern(BaseBoard aInBaseBoard, ArrayList<PcbBoard> aInTargetList) {
