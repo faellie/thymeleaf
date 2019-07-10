@@ -6,7 +6,7 @@ import java.util.List;
 public class SummaryDto {
 
     private CustomOrder customOrder;
-    private List<WorkOrder> workOrders;
+    private ArrayList<WorkOrder> workOrders;
 
 
     public SummaryDto() {
@@ -14,7 +14,7 @@ public class SummaryDto {
         this.workOrders = new ArrayList<>();
     }
 
-    public SummaryDto(CustomOrder customOrder, List<WorkOrder> workOrders) {
+    public SummaryDto(CustomOrder customOrder, ArrayList<WorkOrder> workOrders) {
         this.customOrder = customOrder;
         this.workOrders = workOrders;
     }
@@ -27,11 +27,11 @@ public class SummaryDto {
         this.customOrder = customOrder;
     }
 
-    public List<WorkOrder> getWorkOrders() {
+    public ArrayList<WorkOrder> getWorkOrders() {
         return workOrders;
     }
 
-    public void setWorkOrders(List<WorkOrder> workOrders) {
+    public void setWorkOrders(ArrayList<WorkOrder> workOrders) {
         this.workOrders = workOrders;
     }
 }

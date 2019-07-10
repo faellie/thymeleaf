@@ -6,6 +6,7 @@ import com.myropcb.pcb.model.CustomOrder;
 import com.myropcb.pcb.model.SummaryDto;
 import com.myropcb.pcb.model.WorkOrder;
 import com.myropcb.pcb.model.WorkOrderDto;
+import com.myropcb.pcb.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,17 +40,17 @@ public class OrderController {
     @PostMapping(value = "/process")
     public String process(@ModelAttribute CustomOrder form, Model model) {
 
-        ArrayList<WorkOrder> lworkOrders  = orderService.processOrder(form);
-        model.addAttribute("workOrderDto", new WorkOrderDto(lworkOrders));
+        SummaryDto lSummaryDto  = orderService.processOrder(new SummaryDto(form, new ArrayList<WorkOrder>()));
+
+        model.addAttribute("workOrderDto", new WorkOrderDto(lSummaryDto.getWorkOrders()));
         return "workOrder";
     }
 
     @PostMapping(value = "/processAll")
-    public String process(@ModelAttribute SummaryDto form, Model model) {
-
-        ArrayList<WorkOrder> lworkOrders  = orderService.processOrder(form.getCustomOrder());
-
-        model.addAttribute("form", new SummaryDto(form.getCustomOrder(), lworkOrders));
+    public String processAll(@ModelAttribute SummaryDto form, Model model) {
+        CommonUtils.processInputSummary(form);
+        SummaryDto lSummaryDto = orderService.processOrder(form);
+        model.addAttribute("form", lSummaryDto);
         return "summary";
     }
 }

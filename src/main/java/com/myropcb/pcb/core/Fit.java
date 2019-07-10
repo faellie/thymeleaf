@@ -9,19 +9,25 @@ import com.myropcb.pcb.utils.Comparators;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Fit {
     private CustomOrder customOrder;
     private ArrayList<WorkOrder> workOrders = new ArrayList<>();
 
+    public Fit(CustomOrder customOrder, ArrayList<WorkOrder> workOrders) {
+        this.customOrder = customOrder;
+        this.workOrders = workOrders;
+    }
+
     //todo configuration or...
 
 
-    public Fit(CustomOrder customOrder) {
+    /*public Fit(CustomOrder customOrder, ArrayList<WorkOrder> workOrders) {
         this.customOrder = customOrder;
-    }
-
+        this.workOrders = workOrders;
+    }*/
 
     public CustomOrder getCustomOrder() {
         return customOrder;
@@ -36,11 +42,11 @@ public class Fit {
 
         ArrayList<PcbBoard> targetList = customOrder.clonePcbBoards();
 
-
         //todo can sort in different ways for different output
         Collections.sort(targetList, Comparators.compareCount);
 
-
+        //if workOrders is not empty, remove the elements that appears in workOrders already from targetList
+        initTargetList(workOrders, targetList);
 
         //now we add to the work order
         while (!CommonUtils.noMorePart(targetList)) {
@@ -98,22 +104,41 @@ public class Fit {
         }
         if( dup >= 0 ) {
             //update targetList
-            for(FillElement lElement : fillElements) {
-                //PcbBoard lPcb = targetList.stream().filter((a)->a.getId() == lElement.getPcbId());
-                PcbBoard lPcb = CommonUtils.getWithId(aInTargetList, lElement.getPcbId());
-                if(lElement.getCount() != 0) {
-                    int newCount = lPcb.getCount() - dup * lElement.getCount();
-                    if(newCount < 0) {
-                        //todo
-                        System.out.println("Error : unexpect new count = " + newCount);
-                        System.exit(0);
-                    }
-                    lPcb.setCount(newCount);
-                }
-            }
+            updateTargetList(fillElements, aInTargetList, dup, false);
         }
         //keep only 2 digit for the usedPercent
         return new WorkOrder(lPatern, dup + 1, ((int) (10000 * usedPercent))/10000.0);
+    }
+
+
+    private void initTargetList(ArrayList<WorkOrder> aInWorkOrder, ArrayList<PcbBoard> aInTargetList) {
+        for(WorkOrder lWorkOrder : aInWorkOrder) {
+            ArrayList<FillElement> pcbList= lWorkOrder.getPatern().getPcbs();
+            int dup = lWorkOrder.getDups();
+            updateTargetList(pcbList, aInTargetList, dup, true);
+        }
+    }
+
+    
+    private void updateTargetList(ArrayList<FillElement> aInFillElement, ArrayList<PcbBoard> aInTargetList, int aInDup, boolean aInAllowOverFill) {
+        if(null == aInFillElement || aInFillElement.isEmpty()) {
+            return ;
+        }
+        for(FillElement lElement : aInFillElement) {
+            //PcbBoard lPcb = targetList.stream().filter((a)->a.getId() == lElement.getPcbId());
+            PcbBoard lPcb = CommonUtils.getWithId(aInTargetList, lElement.getPcbId());
+            if(lElement.getCount() != 0) {
+                int newCount = lPcb.getCount() - aInDup * lElement.getCount();
+                if(newCount < 0) {
+                    if(aInAllowOverFill) {
+                        newCount = 0;
+                    } else {
+                        System.out.println("Error : unexpect new count = " + newCount);
+                    }
+                }
+                lPcb.setCount(newCount);
+            }
+        }
     }
 
     private Patern initPatern(BaseBoard aInBaseBoard, ArrayList<PcbBoard> aInTargetList) {

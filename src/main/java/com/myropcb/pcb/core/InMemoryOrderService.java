@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myropcb.pcb.model.CustomOrder;
 import com.myropcb.pcb.model.SummaryDto;
 import com.myropcb.pcb.model.WorkOrder;
+import com.myropcb.pcb.utils.CommonUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -88,21 +89,24 @@ public class InMemoryOrderService implements OrderService {
         }
 
         //todo shall allow user to input init pattern but....
-        Fit lFit = new Fit(customOrder);
+        Fit lFit = new Fit(customOrder, new ArrayList<WorkOrder>());
         lFit.doFit();
         ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
 
         SummaryDto lSummaryDto = new SummaryDto(customOrder, lworkOrders);
-         return lSummaryDto;
+        CommonUtils.processOutputSummary(lSummaryDto);
+        return lSummaryDto;
     }
 
     @Override
-    public ArrayList<WorkOrder> processOrder(CustomOrder aInCustomOrder) {
-        Fit lFit = new Fit(aInCustomOrder);
-        customOrder  = aInCustomOrder;
+    public SummaryDto processOrder(SummaryDto aInSummaryDto) {
+        Fit lFit = new Fit(aInSummaryDto.getCustomOrder(), aInSummaryDto.getWorkOrders());
         lFit.doFit();
         ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
-        return lworkOrders;
+        SummaryDto lDto = new SummaryDto(aInSummaryDto.getCustomOrder(), lworkOrders);
+        CommonUtils.processOutputSummary(lDto);
+
+        return lDto;
     }
 
 

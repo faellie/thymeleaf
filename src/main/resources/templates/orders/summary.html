@@ -98,6 +98,7 @@
                             <th> Count </th>
                             <th> Base BoardId  </th>
                             <th> usagePercent </th>
+                            <th> TEST </th>
                             <th> Layout </th>
                         </tr>
                         </thead>
@@ -109,16 +110,24 @@
                             <td>
                                 <input th:name="|workOrders[${itemStat.index}].dups|" th:value="${workorder.dups}"/>
                             </td>
-                            <td><input readonly="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.baseBoardId|" th:value="${workorder.patern.baseBoardId}"/></td>
+                            <td>
+                                <input readonly="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.baseBoardId|" th:value="${workorder.patern.baseBoardId}"/>
+                            </td>
 
                             <td>
                                 <input readonly="true" th:placeholder="UsagePercent + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].usagePercent|" th:value="${workorder.usagePercent}"/>
+                            </td>
+                            <td>
+                                <input readonly="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.pcbsStr|" th:value="${workorder.patern.pcbsStr}"/>
+                            </td>
                             <td>
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th:block th:each="fill, itemStat2: ${workorder.patern.pcbs}">
-                                            <td th:colspan th:text="${fill.pcbId}" th:name="|workorder.patern.pcbs[${itemStat2.index}].pcbId|">Header Field</td>
+                                            <td th:colspan th:text="${fill.pcbId}" th:name="|workorder.patern.pcbs[${itemStat2.index}].pcbId|">
+
+                                            </td>
                                         </th:block>
                                     </tr>
                                     </thead>
@@ -127,7 +136,9 @@
                                     <tr>
                                         <th:block th:each="fill, itemStat1 : ${workorder.patern.pcbs}">
                                             <!--<td></td><input th:colspan th:name="|workorder.patern.pcbs[${itemStat1.index}].count|" th:value="${fill.count}"/><td>-->
-                                            <td th:colspan th:text="${fill.count}"  th:name="|workorder.patern.pcbs[${itemStat1.index}].count|" >Dataset Field</td>
+                                            <td th:colspan th:text="${fill.count}"  th:name="|workorder.patern.pcbs[${itemStat1.index}].count|" >
+
+                                            </td>
                                             <!--<th th:colspan th:text="${fill.count}">Dataset Field</th>-->
                                         </th:block>
                                     </tr>

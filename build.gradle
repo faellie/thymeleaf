@@ -32,11 +32,13 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'2.1.6.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'2.1.6.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.1.6.RELEASE'
-  /*
-    compile "org.springframework.boot:spring-boot-starter-web:*"
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf:*"
-    compile "org.springframework.boot:spring-boot-devtools:*"
-    testCompile "org.springframework.boot:spring-boot-starter-test:*"*/
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
+    /*
+      compile "org.springframework.boot:spring-boot-starter-web:*"
+      compile "org.springframework.boot:spring-boot-starter-thymeleaf:*"
+      compile "org.springframework.boot:spring-boot-devtools:*"
+      testCompile "org.springframework.boot:spring-boot-starter-test:*"*/
 }
 
 /*

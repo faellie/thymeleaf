@@ -1,11 +1,21 @@
 package com.myropcb.pcb.model;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Patern {
     private String baseBoardId;
-    private ArrayList<FillElement> pcbs;
+    private ArrayList<FillElement> pcbs = new ArrayList<>();
+
+    //a string represenation of the pcbs list
+    //this is for pass data between clien and server
+    private String pcbsStr = "";
 
     public Patern() {
     }
@@ -13,8 +23,33 @@ public class Patern {
     public Patern(String aInBaseBoardId, ArrayList<FillElement> pcbs) {
         this.baseBoardId = aInBaseBoardId;
         this.pcbs = pcbs;
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            pcbsStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pcbs);
+        } catch (JsonProcessingException e) {
+
+        }
     }
 
+    public void updatePcbStr() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            pcbsStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pcbs);
+        } catch (JsonProcessingException e) {
+
+        }
+    }
+    public void initPcbsFromStr() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            pcbs = objectMapper.readValue(pcbsStr,
+                    new TypeReference<ArrayList<FillElement>>() {
+                    });
+        } catch (IOException e) {
+            System.out.println("Failed to parse " + pcbsStr);
+        }
+    }
     public String getBaseBoardId() {
         return baseBoardId;
     }
@@ -76,5 +111,13 @@ public class Patern {
             usedArea = lElement.getArea() * lElement.getCount() + usedArea;
         }
         return usedArea;
+    }
+
+    public String getPcbsStr() {
+        return pcbsStr;
+    }
+
+    public void setPcbsStr(String pcbsStr) {
+        this.pcbsStr = pcbsStr;
     }
 }

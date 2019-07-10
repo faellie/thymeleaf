@@ -12,5 +12,5 @@ public interface OrderService {
 
     SummaryDto getSummary();
 
-    ArrayList<WorkOrder> processOrder(CustomOrder aInCustomOrder);
+    SummaryDto processOrder(SummaryDto aInCustomOrder);
 }
