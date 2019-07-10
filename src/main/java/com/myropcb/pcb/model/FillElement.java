@@ -6,6 +6,9 @@ public class FillElement {
     private int count;
     private double area;
 
+    public FillElement() {
+    }
+
     public FillElement(String pcbId, int count, double area) {
         this.pcbId = pcbId;
         this.count = count;

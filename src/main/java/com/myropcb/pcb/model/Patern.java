@@ -7,6 +7,9 @@ public class Patern {
     private String baseBoardId;
     private ArrayList<FillElement> pcbs;
 
+    public Patern() {
+    }
+
     public Patern(String aInBaseBoardId, ArrayList<FillElement> pcbs) {
         this.baseBoardId = aInBaseBoardId;
         this.pcbs = pcbs;

@@ -6,12 +6,16 @@ public class WorkOrder {
     private int dups = 0;
     private Double usagePercent = 0.0;
 
+
+    public WorkOrder() {
+    }
+
     /*
-    indicate what improvement we can perform on the workorder
-    0 = init, mean its just a suggestion, we should update both the dup and patern
-    1 = patern fixed; we should only update the dups
-    2 = fixed: both patern and dups are fixed and we should simply decrease the custom order accordingly
-     */
+        indicate what improvement we can perform on the workorder
+        0 = init, mean its just a suggestion, we should update both the dup and patern
+        1 = patern fixed; we should only update the dups
+        2 = fixed: both patern and dups are fixed and we should simply decrease the custom order accordingly
+         */
     private int status = 0;
     public WorkOrder(Patern patern, int dups, double usagePercent) {
         this.patern = patern;

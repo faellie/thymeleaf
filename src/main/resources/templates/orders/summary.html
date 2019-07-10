@@ -20,7 +20,6 @@
                 <fieldset>
 					<span class="pull-right">
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Process">
-						    <!--<input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>-->
 					</span>
                     <label>Max Fix Rate  </label><input type="text" th:name="customOrder.maxFitRate" th:value="*{customOrder.maxFitRate}"/>
                     <div class="container">
@@ -106,25 +105,30 @@
                         <tr th:if="${form.workOrders.empty}">
                             <td colspan="2"> No workorders Available </td>
                         </tr>
-                        <tr th:each="workorder : ${form.workOrders}">
-                            <td><span th:text="${workorder.dups}"> Count </span></td>
-                            <td><span th:text="${workorder.patern.baseBoardId}"> baseBoardId </span></td>
+                        <tr th:each="workorder, itemStat : *{workOrders}">
                             <td>
-                                <span th:text="${workorder.usagePercent * 100}"> usagePercent </span></td>
+                                <input th:name="|workOrders[${itemStat.index}].dups|" th:value="${workorder.dups}"/>
+                            </td>
+                            <td><input readonly="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.baseBoardId|" th:value="${workorder.patern.baseBoardId}"/></td>
+
+                            <td>
+                                <input readonly="true" th:placeholder="UsagePercent + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].usagePercent|" th:value="${workorder.usagePercent}"/>
                             <td>
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th:block th:each="fill : ${workorder.patern.pcbs}">
-                                            <th th:colspan th:text="${fill.pcbId}">Header Field</th>
+                                        <th:block th:each="fill, itemStat2: ${workorder.patern.pcbs}">
+                                            <td th:colspan th:text="${fill.pcbId}" th:name="|workorder.patern.pcbs[${itemStat2.index}].pcbId|">Header Field</td>
                                         </th:block>
                                     </tr>
                                     </thead>
                                     <tbody>
 
                                     <tr>
-                                        <th:block th:each="fill : ${workorder.patern.pcbs}">
-                                            <th th:colspan th:text="${fill.count}">Dataset Field</th>
+                                        <th:block th:each="fill, itemStat1 : ${workorder.patern.pcbs}">
+                                            <!--<td></td><input th:colspan th:name="|workorder.patern.pcbs[${itemStat1.index}].count|" th:value="${fill.count}"/><td>-->
+                                            <td th:colspan th:text="${fill.count}"  th:name="|workorder.patern.pcbs[${itemStat1.index}].count|" >Dataset Field</td>
+                                            <!--<th th:colspan th:text="${fill.count}">Dataset Field</th>-->
                                         </th:block>
                                     </tr>
                                     </tbody>
