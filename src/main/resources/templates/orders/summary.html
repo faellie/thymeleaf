@@ -98,7 +98,6 @@
                             <th> Count </th>
                             <th> Base BoardId  </th>
                             <th> usagePercent </th>
-                            <th> TEST </th>
                             <th> Layout </th>
                         </tr>
                         </thead>
@@ -118,7 +117,7 @@
                                 <input readonly="true" th:placeholder="UsagePercent + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].usagePercent|" th:value="${workorder.usagePercent}"/>
                             </td>
                             <td>
-                                <input readonly="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.pcbsStr|" th:value="${workorder.patern.pcbsStr}"/>
+                                <input hidden="true" th:placeholder="BaseBoardId + ' ' + ${itemStat.count}" th:name="|workOrders[${itemStat.index}].patern.pcbsStr|" th:value="${workorder.patern.pcbsStr}"/>
                             </td>
                             <td>
                                 <table class="table">
@@ -144,6 +143,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="#" th:href="@{/order/notfound}"> DeepNest </a>
                             </td>
                         </tr>
 
