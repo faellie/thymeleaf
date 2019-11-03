@@ -1,0 +1,4 @@
+To mix rest api and thymeleaf enginne
+
+APIController(@RestController)  ==> rest API
+OrderController (@Controller) ==> OrderController (JSP)
