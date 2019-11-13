@@ -38,6 +38,7 @@ public class APIController {
         Fit lFit = new Fit(Converter.getCustomOrderFromDataModel(input), Converter.getWorkOrderFromDataModel(input));
         lFit.doFit();
         ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
+        Converter.updateDataModelFromWorkOrder(input, lworkOrders);
         return input;
     }
 }

@@ -145,7 +145,7 @@ public class Fit {
 
     private Patern initPatern(BaseBoard aInBaseBoard, ArrayList<PcbBoard> aInTargetList) {
         Patern lPatern = Patern.initPatern(aInBaseBoard, customOrder);
-        int lMaxCount = maxCount(aInTargetList);
+
         int lMinCount = minCount(aInTargetList);
 
         double usedArea = 0.0;
@@ -154,9 +154,12 @@ public class Fit {
 
         for (int index = 0; index < aInTargetList.size(); index++) {
             PcbBoard nextPcb = aInTargetList.get(index);
-            //if min count 100  and this count = 330, we will try to add 3 (330/100) first
+            //if min count 100  and this count = 330, we will try to add 3.3 (330/100) first
             if(nextPcb.getCount() > 0) {
-                double dup = nextPcb.getCount()/lMinCount;
+
+                //yes cast to double so the div will not round to int.
+                double dup = ((double)nextPcb.getCount())/((double)lMinCount);
+                System.out.println("dup= " + dup);
                 usedArea = usedArea + nextPcb.getArea() * dup;
             }
         }
@@ -167,9 +170,10 @@ public class Fit {
         usedPercent = 0.0;
         for (int index = 0; index < aInTargetList.size(); index++) {
             PcbBoard nextPcb = aInTargetList.get(index);
-            //if min count 100  and this count = 330, we will try to add 3 (330/100) first
+            //if min count 100  and this count = 330, we will try to add 3.3 (330/100) first
             if(nextPcb.getCount() > 0) {
-                int dup = (int) ((nextPcb.getCount()/lMinCount) * ratio);
+                //cast to double so it won;t cast down to int till last step
+                int dup = (int) (((double)(nextPcb.getCount())/((double)lMinCount)) * ratio);
                 dup = dup <= nextPcb.getCount() ? dup :  nextPcb.getCount();
                 nextPcb.decreCount(dup);
                 lPatern.increCount(nextPcb.getId(), dup);
