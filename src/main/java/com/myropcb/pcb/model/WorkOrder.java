@@ -70,7 +70,7 @@ public class WorkOrder {
 
     public String info() {
         String lStr =
-                "Dups = " + dups + "; partern : " + patern.info() + "; Usage Percent =  " + (usagePercent*100) + "%" ;
+                "Dups = " + dups + "; partern : " +(null == patern? "null" :patern.info()) + "; Usage Percent =  " + (usagePercent*100) + "%" ;
         return lStr;
     }
 

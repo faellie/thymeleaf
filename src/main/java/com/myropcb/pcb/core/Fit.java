@@ -113,9 +113,11 @@ public class Fit {
 
     private void initTargetList(ArrayList<WorkOrder> aInWorkOrder, ArrayList<PcbBoard> aInTargetList) {
         for(WorkOrder lWorkOrder : aInWorkOrder) {
-            ArrayList<FillElement> pcbList= lWorkOrder.getPatern().getPcbs();
-            int dup = lWorkOrder.getDups();
-            updateTargetList(pcbList, aInTargetList, dup, true);
+            if(null != lWorkOrder.getPatern()) {
+                ArrayList<FillElement> pcbList = lWorkOrder.getPatern().getPcbs();
+                int dup = lWorkOrder.getDups();
+                updateTargetList(pcbList, aInTargetList, dup, true);
+            }
         }
     }
 
