@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class ProductionOrder {
 
-    @JsonProperty("Id")
-    @ApiModelProperty(value = "Production Board ID")
-    private String id;  //Production Board ID
+    @JsonProperty("productionBoard")
+    @ApiModelProperty(value = "Production Board")
+    private ProductionBoard productionBoard;  //Production Board ID
 
     @JsonProperty("Count")
     @ApiModelProperty(value = "How many to produce")
@@ -20,13 +20,14 @@ public class ProductionOrder {
 
     private LinkedList<PcbEntry> pcbList;  //list of pcb id/number fitted into this  Production Board.
 
-    public ProductionOrder(String id) {
-        this.id = id;
+    public ProductionOrder(ProductionBoard  aInProductionBoard) {
+        this.productionBoard = aInProductionBoard;
         count = 0;
+        pcbList = new LinkedList<>();
     }
 
     public ProductionOrder() {
-        this.id = id;
+        productionBoard = new ProductionBoard();
         count = 0;
         pcbList = new LinkedList<>();
     }
@@ -46,11 +47,11 @@ public class ProductionOrder {
         this.pcbList = pcbList;
     }
 
-    public String getId() {
-        return id;
+    public ProductionBoard getProductionBoard() {
+        return productionBoard;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProductionBoard(ProductionBoard aInProductionBoard) {
+        productionBoard = aInProductionBoard;
     }
 }

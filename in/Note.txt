@@ -2,3 +2,9 @@ To mix rest api and thymeleaf enginne
 
 APIController(@RestController)  ==> rest API
 OrderController (@Controller) ==> OrderController (JSP)
+
+
+input from REST API now works. Also now we try to stick to hte input ratio as much as possible,
+i.e. we only cast down to integer at the last step when calculate the ratio of the pcb orders
+
+Next step we will try to verify with some real fit alogrithm (for exmaple nest4J)

@@ -1,11 +1,12 @@
 package com.myropcb.pcb.controller;
 
 
+import com.myropcb.nest.NestTest;
 import com.myropcb.pcb.core.Fit;
 import com.myropcb.pcb.core.OrderService;
-import com.myropcb.pcb.model.CustomOrder;
 import com.myropcb.pcb.model.WorkOrder;
 import com.myropcb.pcb.model.rest.DataModel;
+import com.myropcb.pcb.model.rest.ProductionOrder;
 import com.myropcb.pcb.model.rest.Rect;
 import com.myropcb.pcb.utils.Converter;
 import io.swagger.annotations.ApiParam;
@@ -39,6 +40,25 @@ public class APIController {
         lFit.doFit();
         ArrayList<WorkOrder> lworkOrders = lFit.getWorkOrders();
         Converter.updateDataModelFromWorkOrder(input, lworkOrders);
+        verify(input);
         return input;
+    }
+
+    @PostMapping(value = "/nest")
+    public ArrayList<String> nest(
+            @RequestBody DataModel input) {
+        ArrayList<String> lret = new ArrayList<>();
+        for(ProductionOrder lOrder : input.getProductionList()) {
+            String lStr = NestTest.runNest(lOrder);
+            lret.add(lStr);
+        }
+
+        return lret;
+    }
+
+    private void verify(DataModel aInInput) {
+        for(ProductionOrder lOrder : aInInput.getProductionList()) {
+            NestTest.runNest(lOrder);
+        }
     }
 }

@@ -1,36 +1,78 @@
-{
-  "List of ProductionOrders": [
+[
 
-  ],
-  "pcbOrders": [
-    {
-      "count": 1000,
-      "pcb": {
-        "hight": 15,
-        "orderId": "pcb1",
-        "width": 15
+  {
+    "List of ProductionOrders": [
+
+    ],
+    "pcbOrders": [
+      {
+        "count": 100,
+        "pcb": {
+          "hight": 20,
+          "orderId": "pcb1",
+          "width": 20
+        }
+      },
+      {
+        "count": 100,
+        "pcb": {
+          "hight": 10,
+          "orderId": "pcb2",
+          "width": 10
+        }
+      },
+      {
+        "count": 200,
+        "pcb": {
+          "hight": 10,
+          "orderId": "pcb3",
+          "width": 10
+        }
       }
-    },
-    {
-      "count": 1500,
-      "pcb": {
-        "hight": 10,
-        "orderId": "pcb2",
-        "width": 10
-      }
-    },
-    {
-      "count": 2000,
-      "pcb": {
-        "hight": 5,
-        "orderId": "pcb3",
-        "width": 5
-      }
+    ],
+    "productionBoard": {
+      "hight": 100,
+      "id": "productionBoard",
+      "width": 100
     }
-  ],
-  "productionBoard": {
-    "hight": 150,
-    "id": "string",
-    "width": 100
+  } ,
+
+
+
+  {
+    "List of ProductionOrders": [
+
+    ],
+    "pcbOrders": [
+      {
+        "count": 1000,
+        "pcb": {
+          "hight": 15,
+          "orderId": "pcb1",
+          "width": 15
+        }
+      },
+      {
+        "count": 1500,
+        "pcb": {
+          "hight": 10,
+          "orderId": "pcb2",
+          "width": 10
+        }
+      },
+      {
+        "count": 2000,
+        "pcb": {
+          "hight": 5,
+          "orderId": "pcb3",
+          "width": 5
+        }
+      }
+    ],
+    "productionBoard": {
+      "hight": 150,
+      "id": "productionBoard",
+      "width": 100
+    }
   }
-}
+]

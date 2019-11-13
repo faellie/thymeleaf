@@ -17,6 +17,7 @@ public class Converter {
         for(PcbEntry lEntry : lPcbEntryList) {
             lCustomOrder.getPcbBoards().add(new PcbBoard(lEntry.getPcb().area(), lEntry.getCount(), lEntry.getPcb().getOrderId()));
         }
+        lCustomOrder.setMaxFitRate(0.8);
         return lCustomOrder;
     }
 
@@ -24,7 +25,7 @@ public class Converter {
         ArrayList<WorkOrder> lWorkOrders= new ArrayList<>();
         LinkedList<ProductionOrder> lOrders = aInDataModel.getProductionList();
         for(ProductionOrder lOrder : lOrders) {
-            Patern patern = new Patern(lOrder.getId(), getFillElementListFromPcbList(lOrder.getPcbList()));
+            Patern patern = new Patern(lOrder.getProductionBoard().getId(), getFillElementListFromPcbList(lOrder.getPcbList()));
             lWorkOrders.add(new WorkOrder());
         }
         return lWorkOrders;
@@ -43,7 +44,10 @@ public class Converter {
         String lProductionBoardId = aInInput.getProductionBoard().getId();
         for(WorkOrder lNextWorkOrder : aInWorkOrders) {
             ProductionOrder lNextProductionOrder = new ProductionOrder();
-            lNextProductionOrder.setId(lProductionBoardId);
+            //these are patches, and shoudl be removed after we refactoring the old data model
+            lNextProductionOrder.getProductionBoard().setId(lProductionBoardId);
+            lNextProductionOrder.getProductionBoard().setHight(aInInput.getProductionBoard().getHight());
+            lNextProductionOrder.getProductionBoard().setWidth(aInInput.getProductionBoard().getWidth());
             lNextProductionOrder.setCount(lNextWorkOrder.getDups());
             LinkedList<PcbEntry> pcbList = lNextProductionOrder.getPcbList();
             ArrayList<FillElement> lArrayList = lNextWorkOrder.getPatern().getPcbs();
