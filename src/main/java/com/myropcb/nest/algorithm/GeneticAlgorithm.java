@@ -174,7 +174,7 @@ public class GeneticAlgorithm {
         }
         else{
             for(int i = 0 ; i< rotate; i ++){
-                angleList.add((360/rotate) * i );
+                angleList.add(i);
             }
         }
         Collections.shuffle(angleList);
