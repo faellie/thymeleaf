@@ -1,8 +1,11 @@
 package com.myropcb.nest.data;
 
 import com.myropcb.nest.util.CommonUtil;
+import com.myropcb.nest.util.GeometryUtil;
 import com.myropcb.nest.util.NestConfig;
 import de.lighti.clipper.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,9 @@ import java.util.List;
  * @author yisa
  */
 public class NestPath  implements Comparable<NestPath>{
+
+    private static final Logger logger = LoggerFactory.getLogger(NestPath.class);
+
     private List<Segment> segments;
     private List<NestPath> children;
     private NestPath parent;
@@ -127,6 +133,9 @@ public class NestPath  implements Comparable<NestPath>{
     }
 
     public void setRotation(int rotation) {
+        if(rotation > 4 || rotation < 0) {
+            logger.debug("setRotation = " + rotation);
+        }
         this.rotation = rotation;
     }
 

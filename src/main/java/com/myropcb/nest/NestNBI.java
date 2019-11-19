@@ -32,7 +32,7 @@ import java.util.List;
  *
  ****************************************************************************
  */
-public class NestTest {
+public class NestNBI {
 
     //space between each shape when add them up into List<NestPath>
     private static  double X_SPACE_BETWEEN_BIN = 10.0;

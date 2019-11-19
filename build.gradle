@@ -45,6 +45,11 @@ dependencies {
       testCompile "org.springframework.boot:spring-boot-starter-test:*"*/
 }
 
+
+tasks.withType(JavaExec) {
+    environment('LD_LIBRARY_PATH', 'libs')
+}
+
 /*
 war {
 

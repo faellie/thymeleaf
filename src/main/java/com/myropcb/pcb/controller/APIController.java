@@ -1,7 +1,7 @@
 package com.myropcb.pcb.controller;
 
 
-import com.myropcb.nest.NestTest;
+import com.myropcb.nest.NestNBI;
 import com.myropcb.pcb.core.Fit;
 import com.myropcb.pcb.core.OrderService;
 import com.myropcb.pcb.model.WorkOrder;
@@ -9,6 +9,7 @@ import com.myropcb.pcb.model.rest.DataModel;
 import com.myropcb.pcb.model.rest.ProductionOrder;
 import com.myropcb.pcb.model.rest.Rect;
 import com.myropcb.pcb.utils.Converter;
+import com.myropcb.tocc.HelloJNI;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -49,16 +50,25 @@ public class APIController {
             @RequestBody DataModel input) {
         ArrayList<String> lret = new ArrayList<>();
         for(ProductionOrder lOrder : input.getProductionList()) {
-            String lStr = NestTest.runNest(lOrder);
+            String lStr = NestNBI.runNest(lOrder);
             lret.add(lStr);
         }
 
         return lret;
     }
 
+    @PostMapping(value = "/cc")
+    public String cc(
+            @RequestBody String input) {
+
+        System.loadLibrary("Hello");
+        HelloJNI api = new HelloJNI();
+        return api.getString(input);
+    }
+
     private void verify(DataModel aInInput) {
         for(ProductionOrder lOrder : aInInput.getProductionList()) {
-            NestTest.runNest(lOrder);
+            NestNBI.runNest(lOrder);
         }
     }
 }

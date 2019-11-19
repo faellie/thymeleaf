@@ -8,3 +8,43 @@ input from REST API now works. Also now we try to stick to hte input ratio as mu
 i.e. we only cast down to integer at the last step when calculate the ratio of the pcb orders
 
 Next step we will try to verify with some real fit alogrithm (for exmaple nest4J)
+
+Nov 14 2019 : Currently there is a problem that the rotation can be < 90 (random) even when I have
+     lNextNestPath.setRotation(4);
+     This is a bug found in GeneticAlgorithm.java
+     private  int randomAngle(NestPath part)
+                     angleList.add((360/rotate) * i ); ==> angleList.add(i);
+
+
+How to use native call
+
+
+https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html
+
+
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/src/main/java$ javac -h include com/myropcb/tocc/HelloJNI.java
+
+This give the com_myropcb_tocc_HelloJNI.h file
+Now edit the HelloJNI.c file
+
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/src/main/java/include$ g++ -shared -O3     -I/usr/include     -I$JAVA_HOME/include     -I$JAVA_HOME/include/linux     HelloJNI.c -fpic -o libHello.so
+
+For command line run
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/src/main/java/include$ sudo cp libHello.so /usr/lib/libHello.so
+
+for gradle bootrun
+
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/src/main/java/include$ sudo cp libHello.so /usr/lib/libHello.so
+
+
+Run :
+
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/build/classes/java/main$ java -cp . com.myropcb.tocc.HelloJNI
+Hello World!
+returned : this is input
+zihuangw@zihuang:/opt/LI/nesting/thymeleaf/build/classes/java/main$
+
+
+Also this give some information about the String handling C coding.....
+https://medium.com/@bschlining/a-simple-java-native-interface-jni-example-in-java-and-scala-68fdafe76f5f
+

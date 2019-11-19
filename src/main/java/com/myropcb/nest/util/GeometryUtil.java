@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *      y
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class GeometryUtil {
     private static double TOL = Math.pow(10,-2);
+    private static final Logger logger = LoggerFactory.getLogger(GeometryUtil.class);
 
     public static boolean almostEqual(double a, double b ){
         return Math.abs(a-b)<TOL;
@@ -196,6 +199,10 @@ public class GeometryUtil {
         if(angle == 0 ){
             return getPolygonBounds(polygon);
         }
+
+        if(angle != 0 && angle != 90 && angle != 180 && angle != 270) {
+            logger.debug("rotatePolygon: angle = " + angle);
+        }
         double Fangle = angle * Math.PI / 180;
         NestPath rotated = new NestPath();
         for(int i=0; i<polygon.size(); i++){
@@ -217,6 +224,9 @@ public class GeometryUtil {
      */
     public static NestPath rotatePolygon2Polygon(NestPath polygon , int degrees ){
         NestPath rotated = new NestPath();
+        if(degrees != 0 && degrees != 90 && degrees != 180 && degrees != 270) {
+            logger.debug("rotatePolygon2Polygon: angle = " + degrees);
+        }
         double angle = degrees * Math.PI / 180;
         for(int i = 0 ; i< polygon.size() ; i++){
             double x = polygon.get(i).x;
