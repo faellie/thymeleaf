@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001", "http://localhost:4200" })
 @RestController
 @RequestMapping("/rest")
 
@@ -32,6 +33,11 @@ public class APIController {
         return rect.area();
     }
 
+    @GetMapping(value = "/rect")
+    public Rect rect(
+            ) {
+        return new Rect(10.0, 10.0);
+    }
 
     @PostMapping(value = "/order")
     public DataModel customOrder(
